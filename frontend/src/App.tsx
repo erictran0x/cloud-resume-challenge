@@ -7,7 +7,10 @@ function App() {
       <Resume>
         <Resume.Name>Eric Tran</Resume.Name>
         <Resume.Topic label="Skills">
-          <p>JavaScript</p>
+          <p>JavaScript/TypeScript (React, Vue, Express.js, socket.io)</p>
+          <p>Python, C++, Java</p>
+          <p>MySQL, MongoDB</p>
+          <p>Git, Docker, Terraform</p>
         </Resume.Topic>
         <Resume.Topic label="Certifications">
           <Resume.Subtopic

@@ -1,9 +1,45 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './ViewerCount.css';
 
+type ViewerCountMessage = {
+	message: number;
+}
+
 function ViewerCount() {
+	const initialized = useRef(false);
 	const [viewers, setViewers] = useState<number | null>(null);
-	return <span className='viewer-count'>Views: {viewers !== null ? viewers : '...'}</span>;
+	const [isClosed, setIsClosed] = useState(false);
+
+	useEffect(() => {
+		if (initialized.current) return;  // only run once in dev mode
+		initialized.current = true;
+		
+		const socket = new WebSocket('wss://2tatoc6enj.execute-api.us-west-1.amazonaws.com/dev/');
+		let pingInterval: number;
+		socket.onopen = () => {
+			pingInterval = setInterval(() => {
+				socket.send(JSON.stringify({ action: 'ping' }));
+			}, 5*60*1000 /* 5 minutes */);
+		};
+		socket.onmessage = (event) => {
+			const data: ViewerCountMessage = JSON.parse(event.data);
+			if (data.message === undefined) return;
+			setViewers(data.message);
+		};
+		socket.onclose = () => {
+			setIsClosed(true);
+			clearInterval(pingInterval);
+		}
+		return () => {
+			if (socket.readyState === WebSocket.OPEN)
+				socket.close();
+		};
+	}, []);
+	return (
+		<span className='viewer-count'>
+			Views: {viewers !== null ? viewers : '...'} {isClosed && ' (refresh to see live changes)'}
+		</span>
+	);
 }
 
 export default ViewerCount;
