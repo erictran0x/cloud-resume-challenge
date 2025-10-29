@@ -1,33 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Resume from './components/Resume'
+import ViewerCount from './components/ViewerCount'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Resume>
+        <Resume.Name>Eric Tran</Resume.Name>
+        <Resume.Topic label="Skills">
+          <p>JavaScript</p>
+        </Resume.Topic>
+        <Resume.Topic label="Certifications">
+          <Resume.Subtopic
+            label="AWS Certified Solutions Architect -- Professional"
+            link="https://cp.certmetrics.com/amazon/en/public/verify/credential/7022718eda474cc9979d9e4a72418a16"
+            dateFrom="Oct 2025" />
+          <Resume.Subtopic
+            label="AWS Certified Developer -- Associate"
+            link="https://cp.certmetrics.com/amazon/en/public/verify/credential/7fe7706b4c824644b714661cc302e05c"
+            dateFrom="Aug 2025" />
+        </Resume.Topic>
+        <Resume.Topic label="Projects">
+          <Resume.Subtopic
+            label="The Cloud Resume Challenge - this website!"
+            dateFrom="Oct 2025">
+            <p>hello there</p>
+          </Resume.Subtopic>
+        </Resume.Topic>
+        <Resume.Topic label="Work Experience">
+          <p>Software engineer, web developer, cloud enthusiast.</p>
+        </Resume.Topic>
+        <Resume.Topic label="Education">
+          <p>Software engineer, web developer, cloud enthusiast.</p>
+          <p>Software engineer, web developer, cloud enthusiast.</p>
+          <p>Software engineer, web developer, cloud enthusiast.</p>
+          <p>Software engineer, web developer, cloud enthusiast.</p>
+          <p>Software engineer, web developer, cloud enthusiast.</p>
+          <p>Software engineer, web developer, cloud enthusiast.</p>
+          <p>Software engineer, web developer, cloud enthusiast.</p>
+          <p>Software engineer, web developer, cloud enthusiast.</p>
+        </Resume.Topic>
+      </Resume>
+      <ViewerCount />
     </>
   )
 }
