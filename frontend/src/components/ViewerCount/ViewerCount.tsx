@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import './ViewerCount.css';
 
 type ViewerCountMessage = {
+	action: string;
 	message: number;
 }
 
@@ -23,7 +24,7 @@ function ViewerCount() {
 		};
 		socket.onmessage = (event) => {
 			const data: ViewerCountMessage = JSON.parse(event.data);
-			if (data.message === undefined) return;
+			if (data.action !== 'broadcast' || data.message === undefined) return;
 			setViewers(data.message);
 		};
 		socket.onclose = () => {
