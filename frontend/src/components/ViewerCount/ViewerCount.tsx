@@ -15,9 +15,10 @@ function ViewerCount() {
 		if (initialized.current) return;  // only run once in dev mode
 		initialized.current = true;
 		
-		const socket = new WebSocket('wss://2tatoc6enj.execute-api.us-west-1.amazonaws.com/dev/');
+		const socket = new WebSocket('/api/');
 		let pingInterval: number;
 		socket.onopen = () => {
+			socket.send(JSON.stringify({ action: 'ping' }));
 			pingInterval = setInterval(() => {
 				socket.send(JSON.stringify({ action: 'ping' }));
 			}, 5*60*1000 /* 5 minutes */);
