@@ -15,7 +15,7 @@ function ViewerCount() {
 		if (initialized.current) return;  // only run once in dev mode
 		initialized.current = true;
 		
-		const socket = new WebSocket('/api/');
+		const socket = new WebSocket('/api/dev');
 		let pingInterval: number;
 		socket.onopen = () => {
 			socket.send(JSON.stringify({ action: 'ping' }));
