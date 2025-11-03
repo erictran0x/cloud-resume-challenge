@@ -21,6 +21,13 @@ module "frontend" {
 
 module "backend" {
 	source = "./modules/backend"
-	
+
 	website_name = var.website_name
+}
+
+import {
+	to = module.frontend.aws_acm_certificate.ssl_cert
+	identity = {
+		arn = "arn:aws:acm:us-east-1:058264485635:certificate/67b6963a-106b-4af6-b33a-20fe70b99ccd"
+	}
 }
