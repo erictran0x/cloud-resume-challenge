@@ -14,15 +14,39 @@ data "archive_file" "lambda" {
 	output_path = "${path.module}/lambda/${each.key}-func.zip"
 }
 
-resource "aws_lambda_function" "functions" {
-	for_each = local.function_names
-
-	function_name 		= each.key
-	role 							= aws_iam_role.lambda_exec[each.key].arn
-	handler 					= "${each.key}.lambda_handler"
+resource "aws_lambda_function" "update_viewer_count" {
+	function_name 		= "update_viewer_count"
+	role 							= aws_iam_role.lambda_exec["update_viewer_count"].arn
+	handler 					= "update_viewer_count.lambda_handler"
 	runtime 					= "python3.13"
-	filename 					= data.archive_file.lambda[each.key].output_path
-	source_code_hash 	= data.archive_file.lambda[each.key].output_base64sha256
+	filename 					= data.archive_file.lambda["update_viewer_count"].output_path
+	source_code_hash 	= data.archive_file.lambda["update_viewer_count"].output_base64sha256
+	timeout 					= 29
+
+	environment {
+		variables = {
+			API_INVOKE_URL = replace(aws_apigatewayv2_stage.dev_stage.invoke_url, "wss", "https")
+		}
+	}
+}
+
+resource "aws_lambda_function" "viewer_count_onconnect" {
+	function_name 		= "viewer_count_onconnect"
+	role 							= aws_iam_role.lambda_exec["viewer_count_onconnect"].arn
+	handler 					= "viewer_count_onconnect.lambda_handler"
+	runtime 					= "python3.13"
+	filename 					= data.archive_file.lambda["viewer_count_onconnect"].output_path
+	source_code_hash 	= data.archive_file.lambda["viewer_count_onconnect"].output_base64sha256
+	timeout 					= 29
+}
+
+resource "aws_lambda_function" "viewer_count_ondisconnect" {
+	function_name 		= "viewer_count_ondisconnect"
+	role 							= aws_iam_role.lambda_exec["viewer_count_ondisconnect"].arn
+	handler 					= "viewer_count_ondisconnect.lambda_handler"
+	runtime 					= "python3.13"
+	filename 					= data.archive_file.lambda["viewer_count_ondisconnect"].output_path
+	source_code_hash 	= data.archive_file.lambda["viewer_count_ondisconnect"].output_base64sha256
 	timeout 					= 29
 }
 
@@ -63,7 +87,7 @@ resource "aws_iam_policy" "update_viewer_count_policy" {
 					"dynamodb:GetItem"
 				]
 				Effect   = "Allow"
-				Resource = aws_dynamodb_table.viewer_count_db
+				Resource = aws_dynamodb_table.viewer_count_db.arn
 			},
 			{
 				Action = [
@@ -71,7 +95,14 @@ resource "aws_iam_policy" "update_viewer_count_policy" {
 					"dynamodb:DeleteItem"
 				]
 				Effect   = "Allow"
-				Resource = aws_dynamodb_table.connection_id_db
+				Resource = aws_dynamodb_table.connection_id_db.arn
+			},
+			{
+				Action = [
+					"execute-api:ManageConnections"
+				]
+				Effect   = "Allow"
+				Resource = "${aws_apigatewayv2_api.this.execution_arn}/*"
 			}
 		]
 	})
@@ -88,7 +119,7 @@ resource "aws_iam_policy" "viewer_count_onconnect_policy" {
 					"dynamodb:PutItem"
 				]
 				Effect   = "Allow"
-				Resource = aws_dynamodb_table.connection_id_db
+				Resource = aws_dynamodb_table.connection_id_db.arn
 			}
 		]
 	})
@@ -105,10 +136,17 @@ resource "aws_iam_policy" "viewer_count_ondisconnect_policy" {
 					"dynamodb:DeleteItem"
 				]
 				Effect   = "Allow"
-				Resource = aws_dynamodb_table.connection_id_db
+				Resource = aws_dynamodb_table.connection_id_db.arn
 			}
 		]
 	})
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_basicexec_attachments" {
+	for_each 	= local.function_names
+
+	role       	= aws_iam_role.lambda_exec[each.key].name
+	policy_arn 	= "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_policy_attachments" {

@@ -1,9 +1,12 @@
+import os
 import boto3
 import json
 
 db = boto3.resource('dynamodb')
 cids_table = db.Table('viewer-count-connection-ids')
 count_table = db.Table('viewer-count')
+
+API_INVOKE_URL = os.environ.get('API_INVOKE_URL')
 
 def update_viewer_count():
     response = count_table.get_item(
@@ -48,7 +51,7 @@ def broadcast(count):
         )
         connections.extend(response['Items'])
 
-    apigw = boto3.client('apigatewaymanagementapi', endpoint_url='https://2tatoc6enj.execute-api.us-west-1.amazonaws.com/dev')
+    apigw = boto3.client('apigatewaymanagementapi', endpoint_url=API_INVOKE_URL)
 
     message = json.dumps({'action': 'broadcast', 'message': count}).encode('utf-8')
     print('connections=', connections)

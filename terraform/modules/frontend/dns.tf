@@ -57,3 +57,6 @@ resource "aws_acm_certificate_validation" "ssl_validation" {
 
 	validation_record_fqdns = [for record in aws_route53_record.validation_records : record.fqdn]
 }
+
+
+# TODO import ssl validations and route 53 related stuff so i don't have to wait an hour+ every time i destroy and re-create the infrastructure

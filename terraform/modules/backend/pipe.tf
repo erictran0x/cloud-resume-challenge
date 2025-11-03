@@ -3,9 +3,14 @@ resource "aws_pipes_pipe" "this" {
 	description = "Trigger update-viewer-count Lambda on new connection ID inserts"
 	role_arn 		= aws_iam_role.pipe_exec.arn
 	source 			= aws_dynamodb_table.connection_id_db.stream_arn
-	target 			= aws_lambda_function.functions["update_viewer_count"].arn
+	target 			= aws_lambda_function.update_viewer_count.arn
 
 	source_parameters {
+		
+		dynamodb_stream_parameters {
+			starting_position = "LATEST"
+		}
+
 		filter_criteria {
 			filter {
 				pattern = jsonencode({
@@ -59,7 +64,7 @@ resource "aws_iam_role_policy" "lambda_pipe_policy" {
 						"lambda:InvokeFunction"
 				]
 				Effect   = "Allow"
-				Resource = aws_lambda_function.functions["update_viewer_count"].arn
+				Resource = aws_lambda_function.update_viewer_count.arn
 			}
 		]
 	})

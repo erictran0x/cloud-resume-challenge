@@ -3,6 +3,10 @@ locals {
 	api_origin_id = "api-origin"
 }
 
+data "aws_cloudfront_cache_policy" "caching_optimized" {
+	name = "Managed-CachingOptimized"
+}
+
 data "aws_cloudfront_cache_policy" "caching_disabled" {
   name = "Managed-CachingDisabled"
 }
@@ -23,9 +27,15 @@ resource "aws_cloudfront_distribution" "s3_dist" {
 
 	# api origin
 	origin {
-		domain_name = var.api.invoke_url
+		domain_name = var.api.endpoint
 		origin_id 	= local.api_origin_id
-		origin_path = "/${var.api.name}"
+
+		custom_origin_config {
+			http_port              = 80
+			https_port             = 443
+			origin_protocol_policy = "https-only"
+			origin_ssl_protocols   = ["TLSv1.2"]
+		}
 	}
 
   enabled             = true
@@ -34,7 +44,7 @@ resource "aws_cloudfront_distribution" "s3_dist" {
   aliases = [var.website_name, "www.${var.website_name}"]
 
 	ordered_cache_behavior {
-		allowed_methods  	= ["GET", "HEAD", "POST"]
+		allowed_methods  	= ["GET", "HEAD", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"]
     cached_methods   	= ["GET", "HEAD"]
 		path_pattern 			= "/api/*"
 		target_origin_id 	= local.api_origin_id
@@ -51,9 +61,11 @@ resource "aws_cloudfront_distribution" "s3_dist" {
 	}
 
   default_cache_behavior {
-    allowed_methods  	= ["GET", "HEAD", "POST"]
+    allowed_methods  	= ["GET", "HEAD", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"]
     cached_methods   	= ["GET", "HEAD"]
     target_origin_id 	= local.s3_origin_id
+
+		cache_policy_id = data.aws_cloudfront_cache_policy.caching_optimized.id
 
     viewer_protocol_policy = "redirect-to-https"
   }
@@ -79,8 +91,13 @@ resource "aws_cloudfront_origin_access_control" "s3_oac" {
 	signing_protocol                  = "sigv4"
 }
 
+resource "aws_cloudfront_origin_access_identity" "s3_oai" {
+  comment = "OAI for erictran.link S3 bucket"
+}
+
 resource "aws_cloudfront_function" "modify_api_origin_func" {
 	name 		= "modify-api-origin"
+	comment = "Function to remove first path segment from /api/* requests"
 	runtime = "cloudfront-js-2.0"
 	code 		= file("${path.module}/cf-func/modify_api_origin.js")
 }
