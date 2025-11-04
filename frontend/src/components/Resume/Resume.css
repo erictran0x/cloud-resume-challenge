@@ -1,8 +1,10 @@
 #my_resume {
-  width: 640px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+}
+
+#my_resume > h1 {
+	text-align: center;
 }
 
 section.resume-topic, section.resume-subtopic {
