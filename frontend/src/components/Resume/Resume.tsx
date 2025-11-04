@@ -10,6 +10,10 @@ function Name({ children } : { children: string }) {
 	return <h1>{children}</h1>
 }
 
+function ContactInfo({ type, children } : { type: string, children: React.ReactNode }) {
+	return <p><b>{type}:</b>&nbsp;{children}</p>
+}
+
 function Topic({ label, children } : { label: React.ReactNode, children: React.ReactNode }) {
 	const [active, setActive] = useState(true);
 
@@ -30,7 +34,7 @@ function Subtopic({ label, link, dateFrom, dateTo, children } : { label: React.R
 	return (
 		<section className='resume-subtopic'>
 			<div className='resume-subtopic-header'>
-				{link ? <a href={link}>{label}</a> : <span>{label}</span>}
+				{link ? <i><a href={link}>{label}</a></i> : <i>{label}</i>}
 				<span style={{fontWeight: "normal"}}>{dateFrom} {dateTo && `- ${dateTo}`}</span>
 			</div>
 			{children}
@@ -39,6 +43,7 @@ function Subtopic({ label, link, dateFrom, dateTo, children } : { label: React.R
 }
 
 Resume.Name = Name;
+Resume.ContactInfo = ContactInfo;
 Resume.Topic = Topic;
 Resume.Subtopic = Subtopic;
 
