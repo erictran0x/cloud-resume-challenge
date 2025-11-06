@@ -6,7 +6,11 @@ on:
       - master
     paths:
       - 'frontend/**'
-      
+  workflow_dispatch:
+    inputs:
+      message:
+        default: 'Manual run'
+
 permissions:
   contents: read
   id-token: write
