@@ -34,7 +34,7 @@ function App() {
             label="The Cloud Resume Challenge - this website!"
             dateFrom="Oct 2025"
             dateTo="Nov 2025">
-              <p>A digital version of my resume. Hosted on AWS</p>
+              <p>A digital version of my resume. Hosted on AWS. <a href="https://github.com/erictran0x/cloud-resume-challenge">source code</a></p>
               <ul>
                 <li>Built the frontend using <b>React</b> and IaC using <b>Terraform</b></li>
                 <li>Frontend hosted on S3, accessible through CloudFront</li>
