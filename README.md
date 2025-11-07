@@ -1,6 +1,10 @@
 # [cloud resume challenge - my attempt](https://erictran.link)
 
-This is my attempt of [The Cloud Resume Challenge](https://cloudresumechallenge.dev/docs/the-challenge/aws/), utilizing AWS services to deploy a globally available, scalable, and cost-effective digital resume.
+![Upload to S3 status](https://github.com/erictran0x/cloud-resume-challenge/actions/workflows/frontend-cicd.yml/badge.svg)
+
+![Redeploy Terraform Infrastructure status](https://github.com/erictran0x/cloud-resume-challenge/actions/workflows/terraform-cicd.yml/badge.svg)
+
+This is my attempt of [The Cloud Resume Challenge](https://cloudresumechallenge.dev/docs/the-challenge/aws/), utilizing AWS services to deploy a globally available, scalable, and cost-effective digital resume. CI/CD pipelines are integrated to automate deployments of the frontend and Terraform infrastructure.
 
 You can find the latest deployment here: [erictran.link](https://erictran.link),
 or you can just click on the header of this readme.
@@ -40,7 +44,10 @@ One caveat: all connections are closed after 2 hours, which is probably okay con
 
 All AWS resources are managed by **Terraform**. Frontend and backend resources are separated in their own modules.
 
+### 4. ci/cd
+
+Changes to the frontend and infrastructure are re-deployed using **GitHub Actions**.
+
 ## possible expansions
 
-- CI/CD pipeline using GitHub Actions
 - Monitoring using CloudWatch - maybe Lambda error rates? as well as CF, APIGW
