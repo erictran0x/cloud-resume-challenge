@@ -3,3 +3,7 @@ variable "website_name" {
 	type        = string
 	default 		= "erictran.link"
 }
+
+variable "unused" {
+	default = "a"
+}
