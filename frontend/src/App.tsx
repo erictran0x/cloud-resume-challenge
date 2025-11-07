@@ -11,13 +11,13 @@ function App() {
         <Resume.ContactInfo type="LinkedIn"><a href="https://linkedin.com/in/erictran0x/">erictran0x</a></Resume.ContactInfo>
         <br />
         <Resume.Topic label="Objective">
-          <p>Automation test engineer is seeking a software/cloud developer role to leverage my skills in web development and cloud computing. </p>
+          <p>Automation test engineer is seeking a software/cloud developer role to leverage my skills in web development and cloud computing.</p>
         </Resume.Topic>
         <Resume.Topic label="Skills">
           <p>JavaScript/TypeScript (React, Vue, Express.js, socket.io)</p>
           <p>Python, C++, Java</p>
           <p>MySQL, MongoDB</p>
-          <p>Git, Docker, Terraform</p>
+          <p>Git, GitHub Actions, Docker, Terraform</p>
         </Resume.Topic>
         <Resume.Topic label="Certifications">
           <Resume.Subtopic
