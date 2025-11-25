@@ -11,7 +11,7 @@ function App() {
         <Resume.ContactInfo type="LinkedIn"><a href="https://linkedin.com/in/erictran0x/">erictran0x</a></Resume.ContactInfo>
         <br />
         <Resume.Topic label="Objective">
-          <p>Automation test engineer is seeking a software/cloud developer role to leverage my skills in web development and cloud computing.</p>
+          <p>Automation test engineer is seeking a software/cloud developer role to leverage my skills in web development and cloud engineering.</p>
         </Resume.Topic>
         <Resume.Topic label="Skills">
           <p>JavaScript/TypeScript (React, Vue, Express.js, socket.io)</p>
@@ -34,13 +34,13 @@ function App() {
             label="The Cloud Resume Challenge - this website!"
             dateFrom="Oct 2025"
             dateTo="Nov 2025">
-              <p>A digital version of my resume. Hosted on AWS. <a href="https://github.com/erictran0x/cloud-resume-challenge">source code</a></p>
-              <ul>
-                <li>Built the frontend using <b>React</b> and IaC using <b>Terraform</b></li>
-                <li>Frontend hosted on S3, accessible through CloudFront</li>
-                <li>Viewer count updated when new API Gateway WebSocket connections</li>
-                <li>Viewer count tracked with DynamoDB Streams and Lambda</li>
-              </ul>
+            <p>A digital version of my resume. Hosted on AWS. <a href="https://github.com/erictran0x/cloud-resume-challenge">source code</a></p>
+            <ul>
+              <li>Built the frontend using <b>React</b> and IaC using <b>Terraform</b></li>
+              <li>Frontend hosted on S3, accessible through CloudFront</li>
+              <li>Viewer count updated when new API Gateway WebSocket connections</li>
+              <li>Viewer count tracked with DynamoDB Streams and Lambda</li>
+            </ul>
           </Resume.Subtopic>
         </Resume.Topic>
         <Resume.Topic label="Work Experience">
@@ -48,29 +48,29 @@ function App() {
             label="Tata Consultancy Services, San Jose, CA - Software Developer"
             dateFrom="Nov 2021"
             dateTo="Feb 2024">
-              <ul>
-                <li>
-                  <b><u>Improved automated test time performance</u></b> from 12 hours to under 1 hour
-                  using faster tricks utilizing ADB (Android Debug Bridge),
-                  migrating from a Tesseract/OCR-based system, while also maintaining test correctness.
-                </li>
-                <li>
-                  <b><u>Offloaded 140/170 test cases</u></b> for Android TV's Google Assistant functionality
-                  by automating them using <b>Appium/Selenium</b> and <b>Google's Tesseract API</b>,&nbsp;
-                  <b><u>reducing manual testing time</u></b> from 4 hours to 40 minutes on average.
-                </li>
-              </ul>
+            <ul>
+              <li>
+                <b><u>Improved automated test time performance</u></b> from 12 hours to under 1 hour
+                using faster tricks utilizing ADB (Android Debug Bridge),
+                migrating from a Tesseract/OCR-based system, while also maintaining test correctness.
+              </li>
+              <li>
+                <b><u>Offloaded 140/170 test cases</u></b> for Android TV's Google Assistant functionality
+                by automating them using <b>Appium/Selenium</b> and <b>Google's Tesseract API</b>,&nbsp;
+                <b><u>reducing manual testing time</u></b> from 4 hours to 40 minutes on average.
+              </li>
+            </ul>
           </Resume.Subtopic>
         </Resume.Topic>
         <Resume.Topic label="Education">
           <Resume.Subtopic
             label="University of California, San Diego - B.S. Computer Science"
             dateFrom="Jun 2021">
-              <ul>
-                <li>
-                  Relevant coursework: Software Engineering, Data Structures, Algorithm Design and Analysis
-                </li>
-              </ul>
+            <ul>
+              <li>
+                Relevant coursework: Software Engineering, Data Structures, Algorithm Design and Analysis
+              </li>
+            </ul>
           </Resume.Subtopic>
         </Resume.Topic>
       </Resume>
