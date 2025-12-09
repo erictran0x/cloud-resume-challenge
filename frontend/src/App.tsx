@@ -11,13 +11,16 @@ function App() {
         <Resume.ContactInfo type="LinkedIn"><a href="https://linkedin.com/in/erictran0x/">erictran0x</a></Resume.ContactInfo>
         <br />
         <Resume.Topic label="Objective">
-          <p>Automation test engineer is seeking a software/cloud developer role to leverage my skills in web development and cloud engineering.</p>
+          <p>
+            Software developer specializes in full-stack development using React and TypeScript and cloud engineering using AWS.
+            Recently certified as a professional solutions architect and associate developer using AWS.
+          </p>
         </Resume.Topic>
         <Resume.Topic label="Skills">
-          <p>JavaScript/TypeScript (React, Vue, Express.js, socket.io)</p>
-          <p>Python, C++, Java</p>
-          <p>MySQL, MongoDB</p>
-          <p>Git, GitHub Actions, Docker, Terraform</p>
+          <p><b>Programming Languages:</b> JavaScript/TypeScript, Python</p>
+          <p><b>Frameworks:</b> React, Vue, Express.js, socket.io</p>
+          <p><b>Databases:</b> MySQL, MongoDB, DynamoDB</p>
+          <p>Other: Git, GitHub Actions, Docker, Terraform, Agile Development, Amazon Web Services</p>
         </Resume.Topic>
         <Resume.Topic label="Certifications">
           <Resume.Subtopic
@@ -31,10 +34,27 @@ function App() {
         </Resume.Topic>
         <Resume.Topic label="Projects">
           <Resume.Subtopic
+            label="ITG Stamina Database"
+            link="https://d2xk0hpalqd86m.cloudfront.net/"
+            dateFrom="Nov 2025"
+            dateTo="present">
+            <p>
+              A web app that details StepMania/In The Groove stamina simfiles by analyzing patterns/arrow sequences and
+              determining the breakdown/structure to allow players to determine
+              the difficulty ratings of future simfiles. <a href="https://github.com/erictran0x/itg-stamdb">source code</a>
+            </p>
+            <ul>
+              <li>Built the frontend using <b>React</b> and IaC using <b>Terraform</b></li>
+              <li>Frontend hosted on S3, accessible through CloudFront</li>
+              <li>Developed the HTTP API using multiple Lambda functions integrated by an API Gateway</li>
+              <li>Built a simfile parser that stores file analysis in S3 and simplified info in DynamoDB</li>
+            </ul>
+          </Resume.Subtopic>
+          <Resume.Subtopic
             label="The Cloud Resume Challenge - this website!"
             dateFrom="Oct 2025"
             dateTo="Nov 2025">
-            <p>A digital version of my resume. Hosted on AWS. <a href="https://github.com/erictran0x/cloud-resume-challenge">source code</a></p>
+            <p>A digital version of my resume. Hosted on AWS.&nbsp;<a href="https://github.com/erictran0x/cloud-resume-challenge">source code</a></p>
             <ul>
               <li>Built the frontend using <b>React</b> and IaC using <b>Terraform</b></li>
               <li>Frontend hosted on S3, accessible through CloudFront</li>
