@@ -33,8 +33,8 @@ jobs:
 
       - name: Initialize Terraform
         working-directory: ./terraform
-        run: terraform init -input=false
+        run: terraform init
 
       - name: Apply Terraform changes
         working-directory: ./terraform
-        run: terraform apply -auto-approve
+        run: terraform apply -input=false -auto-approve
